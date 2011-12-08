@@ -1,0 +1,8 @@
+CC=/usr/bin/gcc-4.2
+if [ -x $CC ]; then
+  export CC
+fi
+
+rvm 1.9.3@schlep
+rvm_project_rvmrc_default=1
+
