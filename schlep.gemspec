@@ -7,9 +7,9 @@ Gem::Specification.new do |s|
   s.version     = Schlep::VERSION
   s.authors     = ["Justin Campbell"]
   s.email       = ["justin@justincampbell.me"]
-  s.homepage    = ""
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
+  s.homepage    = "http://github.com/Movitas/schlep-ruby"
+  s.summary     = %q{Ruby client for schlep http://github.com/Movitas/schlep}
+  s.description = %q{Ruby client for schlep. Schlep provides a simple interface for logging and broadcasting events.}
 
   s.rubyforge_project = "schlep"
 
