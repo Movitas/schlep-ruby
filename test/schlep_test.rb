@@ -86,13 +86,13 @@ class SchlepTest < Test::Unit::TestCase
         Schlep.serialize_message([{ :one => { :two => 3 }},{ :four => { :five => 6 }}])
     end
 
-    should "convert integers to strings" do
-      assert_equal "123",
+    should "leave integers alone" do
+      assert_equal 123,
         Schlep.serialize_message(123)
     end
 
-    should "convert floats to strings" do
-      assert_equal "1.23",
+    should "leave floats alone" do
+      assert_equal 1.23,
         Schlep.serialize_message(1.23)
     end
   end

@@ -47,7 +47,7 @@ module Schlep
   end
 
   def serialize_message(message)
-    return message if message.is_a? String
+    return message if [String, Fixnum, Float].index message.class
     message.to_json
   end
 
