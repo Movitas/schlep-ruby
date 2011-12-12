@@ -20,6 +20,11 @@ Gem::Specification.new do |s|
 
   s.add_runtime_dependency "redis"
 
+  if RUBY_VERSION =~ /1.8/
+    s.add_runtime_dependency "json"
+    s.add_runtime_dependency "system_timer"
+  end
+
   s.add_development_dependency "guard-test"
   s.add_development_dependency "shoulda"
 end
