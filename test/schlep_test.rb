@@ -1,4 +1,8 @@
-require 'test_helper'
+begin
+  require "test_helper"
+rescue LoadError
+  require File.join(File.dirname(__FILE__), ".", "test_helper")
+end
 
 class SchlepTest < Test::Unit::TestCase
   context "schlep" do
