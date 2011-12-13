@@ -28,9 +28,17 @@ module Schlep
   end
 
   def event(type, message)
-    e = envelope(type, message)
-    redis.rpush 'schlep', e
-    e
+    redis.rpush 'schlep', envelope(type, message)
+  end
+
+  def events(type, messages)
+    messages.map! { | message| envelope(type, message) }
+
+    redis.pipelined do
+      while messages.any?
+        redis.rpush 'schlep', messages.pop
+      end
+    end
   end
 
   def hostname
