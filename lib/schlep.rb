@@ -2,11 +2,12 @@ require "schlep/version"
 
 require "json"
 require "redis"
+require "uri"
 
 module Schlep
   extend self
 
-  attr_writer :app, :hostname
+  attr_writer :app, :hostname, :redis_url
 
   def app
     @app ||= ""
@@ -37,11 +38,27 @@ module Schlep
   end
 
   def redis
-    @redis ||= Redis.new
+    @redis ||= Redis.new redis_options
+  end
+
+  def redis_options
+    return {} unless redis_url
+
+    parsed_url = URI::parse(redis_url)
+
+    {
+      :host     => parsed_url.host,
+      :port     => parsed_url.port,
+      :password => parsed_url.password
+    }
+  end
+
+  def redis_url
+    @redis_url ||= ENV["REDIS_URL"] or ENV["REDISTOGO_URL"]
   end
 
   def reset
-    %w[app hostname redis].each do |ivar|
+    %w[app hostname redis redis_url].each do |ivar|
       instance_variable_set "@#{ivar}", nil
     end
   end
