@@ -42,7 +42,11 @@ module Schlep
   end
 
   def hostname
-    @hostname ||= `hostname`.split(".").first
+    @hostname ||= `hostname`
+
+    @hostname.gsub! /\s/, "" if @hostname =~ /\s/
+
+    @hostname
   end
 
   def redis

@@ -57,6 +57,15 @@ class SchlepTest < Test::Unit::TestCase
     should "be a string" do
       assert Schlep.hostname.is_a? String
     end
+
+    should "strip whitespace and newlines" do
+      Schlep.hostname = "test string\n"
+      assert_equal "teststring", Schlep.hostname
+    end
+
+    should "not include a newline from the hostname command" do
+      assert_nil Schlep.hostname =~ /\s/
+    end
   end
 
   context "redis_url" do
