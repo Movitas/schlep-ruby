@@ -123,8 +123,8 @@ class SchlepTest < Test::Unit::TestCase
   end
 
   context "serialize message" do
-    should "leave valid json alone" do
-      assert_equal "{\"one\":{\"two\":3}}",
+    should "convert json to a hash" do
+      assert_equal ({ "one" => { "two" => 3 }}),
         Schlep.serialize_message("{\"one\":{\"two\":3}}")
     end
 
@@ -133,19 +133,14 @@ class SchlepTest < Test::Unit::TestCase
         Schlep.serialize_message("test string")
     end
 
-    should "convert arrays to json" do
-      assert_equal "[1,2,[3,4]]",
+    should "leave arrays alone" do
+      assert_equal [1,2,[3,4]],
         Schlep.serialize_message([1,2,[3,4]])
     end
 
-    should "convert hashes to json" do
-      assert_equal "{\"one\":{\"two\":3}}",
+    should "leave hashes alone" do
+      assert_equal ({ :one => { :two => 3 }}),
         Schlep.serialize_message({ :one => { :two => 3 }})
-    end
-
-    should "convert an array of hashes to json" do
-      assert_equal "[{\"one\":{\"two\":3}},{\"four\":{\"five\":6}}]",
-        Schlep.serialize_message([{ :one => { :two => 3 }},{ :four => { :five => 6 }}])
     end
 
     should "leave integers alone" do

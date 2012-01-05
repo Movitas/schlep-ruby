@@ -76,8 +76,13 @@ module Schlep
   end
 
   def serialize_message(message)
-    return message if [String, Fixnum, Float].index message.class
-    message.to_json
+    return message unless message.is_a? String
+
+    begin
+      JSON.parse message
+    rescue JSON::ParserError
+      message
+    end
   end
 
   def timestamp
