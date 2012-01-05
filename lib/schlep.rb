@@ -11,6 +11,8 @@ module Schlep
 
   def app
     @app ||= ""
+
+    sanitize @app
   end
 
   def configure
@@ -44,9 +46,7 @@ module Schlep
   def hostname
     @hostname ||= `hostname`
 
-    @hostname.gsub! /\s/, "" if @hostname =~ /\s/
-
-    @hostname
+    sanitize @hostname
   end
 
   def redis
@@ -87,5 +87,11 @@ module Schlep
 
   def timestamp
     Time.now.to_f
+  end
+
+  private
+
+  def sanitize(string)
+    string.gsub /\s/, ""
   end
 end

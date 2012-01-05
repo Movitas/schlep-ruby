@@ -58,11 +58,6 @@ class SchlepTest < Test::Unit::TestCase
       assert Schlep.hostname.is_a? String
     end
 
-    should "strip whitespace and newlines" do
-      Schlep.hostname = "test string\n"
-      assert_equal "teststring", Schlep.hostname
-    end
-
     should "not include a newline from the hostname command" do
       assert_nil Schlep.hostname =~ /\s/
     end
@@ -157,6 +152,20 @@ class SchlepTest < Test::Unit::TestCase
   context "timestamp" do
     should "be a float" do
       assert Schlep.timestamp.is_a? Float
+    end
+  end
+
+  # private
+
+  context "sanitize" do
+    should "strip whitespace" do
+      assert_equal "teststring",
+        Schlep.send(:sanitize, "test string")
+    end
+
+    should "strip newlines" do
+      assert_equal "test",
+        Schlep.send(:sanitize, "test\n")
     end
   end
 end
