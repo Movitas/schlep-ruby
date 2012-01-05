@@ -167,5 +167,20 @@ class SchlepTest < Test::Unit::TestCase
       assert_equal "test",
         Schlep.send(:sanitize, "test\n")
     end
+
+    should "replace special characters with a colon" do
+      assert_equal "a:b:c:d:e",
+        Schlep.send(:sanitize, "a:b/c^d$$e")
+    end
+
+    should "remove special characters at the beginning or end or a string" do
+      assert_equal "test:string",
+        Schlep.send(:sanitize, "$test$string$")
+    end
+
+    should "not replace periods" do
+      assert_equal "a.b.c.d.e",
+        Schlep.send(:sanitize, "a.b.c.d.e")
+    end
   end
 end
