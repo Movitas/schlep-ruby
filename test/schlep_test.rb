@@ -61,6 +61,11 @@ class SchlepTest < Test::Unit::TestCase
     should "not include a newline from the hostname command" do
       assert_nil Schlep.hostname =~ /\s/
     end
+
+    should "not remove dashes, underscores, or periods" do
+      Schlep.hostname = "this-is_a.hostname"
+      assert_equal "this-is_a.hostname", Schlep.hostname
+    end
   end
 
   context "redis_url" do
