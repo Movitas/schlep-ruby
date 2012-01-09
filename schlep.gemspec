@@ -5,6 +5,7 @@ require "schlep/version"
 Gem::Specification.new do |s|
   s.name        = "schlep"
   s.version     = Schlep::VERSION
+  s.license     = "MIT"
   s.authors     = ["Justin Campbell"]
   s.email       = ["justin@justincampbell.me"]
   s.homepage    = "http://github.com/Movitas/schlep-ruby"
