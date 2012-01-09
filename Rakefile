@@ -4,9 +4,9 @@ rescue LoadError
   puts "Ruby >= 1.9 required for build tasks"
 end
 
-require 'rake/testtask'
+require 'rspec/core/rake_task'
 
-task :default => :test
+task :default => :spec
 
-desc "Run basic tests"
-Rake::TestTask.new("test") { |t| t.pattern = 'test/*_test.rb' }
+desc "Run the test suite"
+RSpec::Core::RakeTask.new

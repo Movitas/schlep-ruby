@@ -26,7 +26,7 @@ Gem::Specification.new do |s|
     s.add_runtime_dependency "system_timer"
   end
 
-  s.add_development_dependency "guard-test"
+  s.add_development_dependency "guard-rspec"
   s.add_development_dependency "rake"
-  s.add_development_dependency "shoulda"
+  s.add_development_dependency "rspec"
 end
