@@ -17,7 +17,7 @@ class SchlepTest < Test::Unit::TestCase
 
   context "schlep" do
     should "be defined as a module" do
-      assert_equal Module, Schlep.class
+      assert_instance_of Module, Schlep
     end
   end
 
@@ -55,7 +55,7 @@ class SchlepTest < Test::Unit::TestCase
 
   context "hostname" do
     should "be a string" do
-      assert Schlep.hostname.is_a? String
+      assert_instance_of String, Schlep.hostname
     end
 
     should "not include a newline from the hostname command" do
@@ -156,7 +156,7 @@ class SchlepTest < Test::Unit::TestCase
 
   context "timestamp" do
     should "be a float" do
-      assert Schlep.timestamp.is_a? Float
+      assert_instance_of Float, Schlep.timestamp
     end
   end
 
