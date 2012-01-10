@@ -82,7 +82,9 @@ module Schlep
   end
 
   def serialize_message(message)
-    return message unless message.is_a? String
+    return message unless
+      message.is_a? String and
+      message.match /\{.+\}/
 
     begin
       JSON.parse message
