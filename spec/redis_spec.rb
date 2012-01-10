@@ -19,7 +19,7 @@ describe Schlep do
 
   context "#event" do
     it "should push an event to the schlep key" do
-      Schlep.event "test", "test"
+      Schlep.event :test, "test"
 
       Schlep.redis.llen(Schlep.key).should == 1
     end
@@ -27,13 +27,13 @@ describe Schlep do
     it "should suppress connection errors" do
       stop_redis
 
-      Schlep.event "test", "test"
+      Schlep.event :test, "test"
     end
   end
 
   context "#events" do
     it "should push multiple events to the schlep key" do
-      Schlep.events "test", [1,2,3]
+      Schlep.events :test, [1,2,3]
 
       Schlep.redis.llen(Schlep.key).should == 3
     end
@@ -41,7 +41,7 @@ describe Schlep do
     it "should suppress connection errors" do
       stop_redis
 
-      Schlep.events "test", [1,2,3]
+      Schlep.events :test, [1,2,3]
     end
   end
 end if `which redis-server`.lines.any?

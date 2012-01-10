@@ -41,9 +41,15 @@ describe Schlep do
 
   context "#envelope" do
     it "should return valid json" do
-      lambda {
-        JSON.parse(Schlep.envelope "test_type", { :one => { :two => 3 }})
-      }.should_not raise_error(Exception)
+      JSON.parse(Schlep.envelope "test_type", { :one => { :two => 3 }})
+    end
+
+    it "should accept types as strings" do
+      Schlep.envelope "test", "test"
+    end
+
+    it "should accept types as symbols" do
+      Schlep.envelope :test, "test"
     end
   end
 
