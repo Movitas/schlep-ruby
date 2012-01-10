@@ -30,7 +30,7 @@ module Schlep
   end
 
   def event(type, message)
-    redis.rpush 'schlep', envelope(type, message)
+    redis.rpush key, envelope(type, message)
   end
 
   def events(type, messages)
@@ -45,6 +45,10 @@ module Schlep
     @hostname ||= `hostname`
 
     sanitize @hostname
+  end
+
+  def key
+    @key ||= :schlep
   end
 
   def redis
