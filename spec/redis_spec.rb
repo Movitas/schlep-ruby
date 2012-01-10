@@ -21,7 +21,7 @@ describe Schlep do
     it "should push an event to the schlep key" do
       Schlep.event "test", "test"
 
-      Schlep.redis.llen('schlep').should == 1
+      Schlep.redis.llen(Schlep.key).should == 1
     end
 
     it "should suppress connection errors" do
@@ -35,7 +35,7 @@ describe Schlep do
     it "should push multiple events to the schlep key" do
       Schlep.events "test", [1,2,3]
 
-      Schlep.redis.llen('schlep').should == 3
+      Schlep.redis.llen(Schlep.key).should == 3
     end
 
     it "should suppress connection errors" do
