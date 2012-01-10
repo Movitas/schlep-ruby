@@ -34,11 +34,9 @@ module Schlep
   end
 
   def events(type, messages)
-    messages.map! { | message| envelope(type, message) }
-
     redis.pipelined do
       while messages.any?
-        redis.rpush 'schlep', messages.pop
+        event type, messages.pop
       end
     end
   end
