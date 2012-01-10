@@ -1,5 +1,7 @@
 require "spec_helper"
 
+REDIS_ENABLED = `which redis-server`.lines.any? && RUBY_PLATFORM != "java"
+
 describe Schlep do
   before :all do
     print "("
@@ -44,4 +46,4 @@ describe Schlep do
       Schlep.events :test, [1,2,3]
     end
   end
-end if `which redis-server`.lines.any?
+end if REDIS_ENABLED
