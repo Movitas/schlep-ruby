@@ -15,7 +15,7 @@ describe Schlep do
     Schlep.class.should be_a Module
   end
 
-  context "#configure" do
+  context ".configure" do
     it "should be configurable with setters" do
       Schlep.app       = "test_app_1"
       Schlep.hostname  = "test_hostname_1"
@@ -39,7 +39,7 @@ describe Schlep do
     end
   end
 
-  context "#envelope" do
+  context ".envelope" do
     it "should return valid json" do
       JSON.parse(Schlep.envelope "test_type", { :one => { :two => 3 }})
     end
@@ -53,7 +53,7 @@ describe Schlep do
     end
   end
 
-  context "#hostname" do
+  context ".hostname" do
     it "should be a string" do
       Schlep.hostname.should be_instance_of String
     end
@@ -69,7 +69,7 @@ describe Schlep do
     end
   end
 
-  context "#redis_url" do
+  context ".redis_url" do
     it "should connect locally by default" do
       Schlep.redis.client.host.should == "127.0.0.1"
       Schlep.redis.client.port.should == 6379
@@ -108,7 +108,7 @@ describe Schlep do
     end
   end
 
-  context "#reset" do
+  context ".reset" do
     it "should reset instance variables to nil" do
       Schlep.configure do |config|
         config.app      = "test_app"
@@ -123,7 +123,7 @@ describe Schlep do
     end
   end
 
-  context "#serialize message" do
+  context ".serialize message" do
     it "should convert json to a hash" do
       Schlep.serialize_message("{\"one\":{\"two\":3}}").should == ({ "one" => { "two" => 3 }})
     end
@@ -149,7 +149,7 @@ describe Schlep do
     end
   end
 
-  context "#timestamp" do
+  context ".timestamp" do
     it "should be a float" do
       Schlep.timestamp.should be_a Float
     end
@@ -157,7 +157,7 @@ describe Schlep do
 
   # private
 
-  context "#sanitize" do
+  context ".sanitize" do
     it "should strip whitespace" do
       Schlep.send(:sanitize, "test string").should == "teststring"
     end

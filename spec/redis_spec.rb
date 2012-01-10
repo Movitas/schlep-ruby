@@ -17,7 +17,7 @@ describe Schlep do
     Schlep.redis.flushall
   end
 
-  context "#event" do
+  context ".event" do
     it "should push an event to the schlep key" do
       Schlep.event :test, "test"
 
@@ -31,7 +31,7 @@ describe Schlep do
     end
   end
 
-  context "#events" do
+  context ".events" do
     it "should push multiple events to the schlep key" do
       Schlep.events :test, [1,2,3]
 
