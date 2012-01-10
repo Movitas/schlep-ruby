@@ -7,12 +7,14 @@ require "uri"
 module Schlep
   extend self
 
-  attr_writer :app, :hostname, :redis_url
+  attr_writer :redis_url
 
   def app
     @app ||= ""
+  end
 
-    sanitize @app
+  def app=(string)
+    @app = sanitize string
   end
 
   def configure
@@ -42,9 +44,11 @@ module Schlep
   end
 
   def hostname
-    @hostname ||= `hostname`
+    @hostname ||= sanitize `hostname`
+  end
 
-    sanitize @hostname
+  def hostname=(string)
+    @hostname = sanitize string
   end
 
   def key
