@@ -1,3 +1,5 @@
+ENV['RUBY_ENV'] = 'test'
+
 require "schlep"
 
 REDIS_OPTIONS = {
