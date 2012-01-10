@@ -38,9 +38,11 @@ module Schlep
   def events(type, messages)
     messages.map! { |message| envelope type, message }
 
-    redis.pipelined do
-      while messages.any?
-        redis.rpush key, messages.pop
+    suppress_redis_errors do
+      redis.pipelined do
+        while messages.any?
+          redis.rpush key, messages.pop
+        end
       end
     end
   end
@@ -107,5 +109,13 @@ module Schlep
     string.gsub! /[^\w\.\-]+/, ":"
 
     string
+  end
+
+  def suppress_redis_errors
+    begin
+      yield
+    rescue Errno::ECONNREFUSED => e
+      puts e.inspect unless ENV['RUBY_ENV'] == 'test'
+    end
   end
 end

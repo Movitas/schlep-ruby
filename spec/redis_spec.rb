@@ -23,6 +23,12 @@ describe Schlep do
 
       Schlep.redis.llen('schlep').should == 1
     end
+
+    it "should suppress connection errors" do
+      stop_redis
+
+      Schlep.event "test", "test"
+    end
   end
 
   context "#events" do
@@ -30,6 +36,12 @@ describe Schlep do
       Schlep.events "test", [1,2,3]
 
       Schlep.redis.llen('schlep').should == 3
+    end
+
+    it "should suppress connection errors" do
+      stop_redis
+
+      Schlep.events "test", [1,2,3]
     end
   end
 end if `which redis-server`.lines.any?
