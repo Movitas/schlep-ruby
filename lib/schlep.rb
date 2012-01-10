@@ -32,13 +32,15 @@ module Schlep
   end
 
   def event(type, message)
-    redis.rpush key, envelope(type, message)
+    events type, [message]
   end
 
   def events(type, messages)
+    messages.map! { |message| envelope type, message }
+
     redis.pipelined do
       while messages.any?
-        event type, messages.pop
+        redis.rpush key, messages.pop
       end
     end
   end
