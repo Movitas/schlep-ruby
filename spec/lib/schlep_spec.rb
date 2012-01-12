@@ -40,8 +40,8 @@ describe Schlep do
   end
 
   context ".envelope" do
-    it "should return valid json" do
-      JSON.parse(Schlep.envelope "test_type", { :one => { :two => 3 }})
+    it "should return a hash" do
+      Schlep.envelope("test", "test").should be_instance_of Hash
     end
 
     it "should accept types as strings" do

@@ -28,7 +28,7 @@ module Schlep
       :host =>      hostname,
       :type =>      type,
       :message =>   serialize_message(message)
-    }.to_json
+    }
   end
 
   def event(type, message)
@@ -36,7 +36,7 @@ module Schlep
   end
 
   def events(type, messages)
-    messages.map! { |message| envelope type, message }
+    messages.map! { |message| envelope(type, message).to_json }
 
     suppress_redis_errors do
       redis.pipelined do
