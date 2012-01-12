@@ -26,7 +26,7 @@ To change this, you can configure things one at a time:
 
 ```rb
 Schlep.app       = "My App"
-Schlep.hostname  = "localhost"
+Schlep.host      = "localhost"
 Schlep.redis_url = "redis://redis:password@localhost:6379"
 ```
 
@@ -35,7 +35,7 @@ or in a block:
 ```rb
 Schlep.configure do |config|
   config.app       = "My App"
-  config.hostname  = "localhost"
+  config.host      = "localhost"
   config.redis_url = "redis://redis:password@localhost:6379"
 end
 ```

@@ -25,7 +25,7 @@ module Schlep
     {
       :timestamp => timestamp,
       :app =>       app,
-      :host =>      hostname,
+      :host =>      host,
       :type =>      type,
       :message =>   serialize_message(message)
     }
@@ -47,12 +47,12 @@ module Schlep
     end
   end
 
-  def hostname
-    @hostname ||= sanitize `hostname`
+  def host
+    @host ||= sanitize `hostname`
   end
 
-  def hostname=(string)
-    @hostname = sanitize string
+  def host=(string)
+    @host = sanitize string
   end
 
   def key
@@ -80,7 +80,7 @@ module Schlep
   end
 
   def reset
-    %w[app hostname redis redis_url].each do |ivar|
+    %w[app host redis redis_url].each do |ivar|
       instance_variable_set "@#{ivar}", nil
     end
   end

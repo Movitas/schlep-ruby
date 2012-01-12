@@ -18,23 +18,23 @@ describe Schlep do
   context ".configure" do
     it "should be configurable with setters" do
       Schlep.app       = "test_app_1"
-      Schlep.hostname  = "test_hostname_1"
+      Schlep.host      = "test_host_1"
       Schlep.redis_url = "redis://localhost:1234"
 
       Schlep.app.should == "test_app_1"
-      Schlep.hostname.should == "test_hostname_1"
+      Schlep.host.should == "test_host_1"
       Schlep.redis_url.should == "redis://localhost:1234"
     end
 
     it "should be configurable with a block" do
       Schlep.configure do |config|
         config.app       = "test_app_2"
-        config.hostname  = "test_hostname_2"
+        config.host      = "test_host_2"
         config.redis_url = "redis://localhost:4321"
       end
 
       Schlep.app.should == "test_app_2"
-      Schlep.hostname.should == "test_hostname_2"
+      Schlep.host.should == "test_host_2"
       Schlep.redis_url.should == "redis://localhost:4321"
     end
   end
@@ -53,19 +53,19 @@ describe Schlep do
     end
   end
 
-  context ".hostname" do
+  context ".host" do
     it "should be a string" do
-      Schlep.hostname.should be_instance_of String
+      Schlep.host.should be_instance_of String
     end
 
     it "should not include a newline from the hostname command" do
-      Schlep.hostname.should_not match /\s/
+      Schlep.host.should_not match /\s/
     end
 
     it "should not remove dashes, underscores, or periods" do
-      Schlep.hostname = "this-is_a.hostname"
+      Schlep.host = "this-is_a.host"
 
-      Schlep.hostname.should == "this-is_a.hostname"
+      Schlep.host.should == "this-is_a.host"
     end
   end
 
@@ -112,12 +112,12 @@ describe Schlep do
     it "should reset instance variables to nil" do
       Schlep.configure do |config|
         config.app      = "test_app"
-        config.hostname = "test_hostname"
+        config.host = "test_host"
       end
 
       Schlep.reset
 
-      %w[app hostname redis].each do |ivar|
+      %w[app host redis].each do |ivar|
         Schlep.instance_variable_get("@#{ivar}").should be_nil
       end
     end
