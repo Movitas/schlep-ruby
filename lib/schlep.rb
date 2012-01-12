@@ -106,6 +106,8 @@ module Schlep
   private
 
   def sanitize(string)
+    string = string.to_s
+
     string.gsub! /\s/, ""
     string.gsub! /^[^\w]+|[^\w]+$/, ""
     string.gsub! /[^\w\.\-]+/, ":"

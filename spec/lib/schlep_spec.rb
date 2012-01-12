@@ -177,6 +177,10 @@ describe Schlep do
   # private
 
   context ".sanitize" do
+    it "should convert symbols to strings" do
+      Schlep.send(:sanitize, :test_symbol).should == "test_symbol"
+    end
+
     it "should strip whitespace" do
       Schlep.send(:sanitize, "test string").should == "teststring"
     end
