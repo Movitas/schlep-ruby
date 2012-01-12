@@ -24,19 +24,21 @@ module Schlep
   def envelope(type, message, options = {})
     {
       :timestamp => timestamp,
-      :app =>       options[:app]  ? sanitize(options[:app])  : app,
-      :host =>      options[:host] ? sanitize(options[:host]) : host,
+      :app =>       options[:app]  || app,
+      :host =>      options[:host] || host,
       :type =>      type,
       :message =>   serialize_message(message)
     }
   end
 
-  def event(type, message)
-    events type, [message]
+  def event(type, message, options = {})
+    events type, [message], options
   end
 
-  def events(type, messages)
-    messages.map! { |message| envelope(type, message).to_json }
+  def events(type, messages, options = {})
+    options.keys.each { |k| options[k] = sanitize(options[k]) }
+
+    messages.map! { |message| envelope(type, message, options).to_json }
 
     suppress_redis_errors do
       redis.pipelined do

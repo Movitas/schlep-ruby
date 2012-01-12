@@ -29,6 +29,13 @@ describe Schlep do
       envelope['message'].should == "test"
     end
 
+    it "should sanitize overridden options" do
+      Schlep.event "test", "test", :app => "a:b/c^d$$e", :host => "a:b/c^d$$e"
+      envelope = JSON.parse(Schlep.redis.lpop(Schlep.key))
+      envelope['app'].should  == "a:b:c:d:e"
+      envelope['host'].should == "a:b:c:d:e"
+    end
+
     it "should suppress connection errors" do
       stop_redis
 
@@ -47,6 +54,13 @@ describe Schlep do
         envelope['type'].should    == "test"
         envelope['message'].should == n
       end
+    end
+
+    it "should sanitize overridden options" do
+      Schlep.events "test", ["test"], :app => "a:b/c^d$$e", :host => "a:b/c^d$$e"
+      envelope = JSON.parse(Schlep.redis.lpop(Schlep.key))
+      envelope['app'].should  == "a:b:c:d:e"
+      envelope['host'].should == "a:b:c:d:e"
     end
 
     it "should suppress connection errors" do
