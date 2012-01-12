@@ -70,6 +70,12 @@ describe Schlep do
       e = Schlep.envelope("test", "test", :timestamp => 1234567890)
       e[:timestamp].should_not == 1234567890
     end
+
+    it "should sanitize overridden options" do
+      e = Schlep.envelope "test", "test", :app => "a:b/c^d$$e", :host => "a:b/c^d$$e"
+      e[:app].should  == "a:b:c:d:e"
+      e[:host].should == "a:b:c:d:e"
+    end
   end
 
   context ".host" do

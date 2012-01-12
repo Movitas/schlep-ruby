@@ -24,8 +24,8 @@ module Schlep
   def envelope(type, message, options = {})
     {
       :timestamp => timestamp,
-      :app =>       (options[:app]  or app),
-      :host =>      (options[:host] or host),
+      :app =>       options[:app]  ? sanitize(options[:app])  : app,
+      :host =>      options[:host] ? sanitize(options[:host]) : host,
       :type =>      type,
       :message =>   serialize_message(message)
     }
