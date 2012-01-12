@@ -41,7 +41,7 @@ module Schlep
     suppress_redis_errors do
       redis.pipelined do
         while messages.any?
-          redis.rpush key, messages.pop
+          redis.rpush key, messages.shift
         end
       end
     end

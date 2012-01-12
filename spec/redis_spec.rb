@@ -24,6 +24,9 @@ describe Schlep do
       Schlep.event :test, "test"
 
       Schlep.redis.llen(Schlep.key).should == 1
+      envelope = JSON.parse(Schlep.redis.lpop(Schlep.key))
+      envelope['type'].should    == "test"
+      envelope['message'].should == "test"
     end
 
     it "should suppress connection errors" do
@@ -38,6 +41,12 @@ describe Schlep do
       Schlep.events :test, [1,2,3]
 
       Schlep.redis.llen(Schlep.key).should == 3
+
+      (1..3).each do |n|
+        envelope = JSON.parse(Schlep.redis.lpop(Schlep.key))
+        envelope['type'].should    == "test"
+        envelope['message'].should == n
+      end
     end
 
     it "should suppress connection errors" do
