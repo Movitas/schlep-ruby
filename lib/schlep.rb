@@ -21,11 +21,11 @@ module Schlep
     yield self
   end
 
-  def envelope(type, message)
+  def envelope(type, message, options = {})
     {
       :timestamp => timestamp,
-      :app =>       app,
-      :host =>      host,
+      :app =>       (options[:app]  or app),
+      :host =>      (options[:host] or host),
       :type =>      type,
       :message =>   serialize_message(message)
     }

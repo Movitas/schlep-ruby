@@ -51,6 +51,25 @@ describe Schlep do
     it "should accept types as symbols" do
       Schlep.envelope :test, "test"
     end
+
+    it "should allow the app to be overridden" do
+      Schlep.app = "test_app"
+      e = Schlep.envelope("test", "test", :app => "another_app")
+      e[:app].should == "another_app"
+      Schlep.app.should == "test_app"
+    end
+
+    it "should allow the host to be overridden" do
+      Schlep.host = "test_host"
+      e = Schlep.envelope("test", "test", :host => "another_host")
+      e[:host].should == "another_host"
+      Schlep.host.should == "test_host"
+    end
+
+    it "should not allow the timestamp to be overridden" do
+      e = Schlep.envelope("test", "test", :timestamp => 1234567890)
+      e[:timestamp].should_not == 1234567890
+    end
   end
 
   context ".host" do
